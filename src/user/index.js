@@ -10,12 +10,6 @@ import SwiperPage from './layout/Swiper'
 
 const Trangchu = () => {
     const [loading, setloading] = useState(false)
-    useEffect(() => {
-        setloading(true)
-        setTimeout(() => {
-            setloading(false)
-        }, 500)
-    }, [])
     return (
 
         <Uselogin>
@@ -34,7 +28,7 @@ const Trangchu = () => {
                     size={100}
                 /> : <div>
                    
-                    <Products />
+                    <Products loading={setloading}/>
                     <Login />
                     <Pagination />
                     

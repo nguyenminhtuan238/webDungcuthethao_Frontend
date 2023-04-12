@@ -2,7 +2,7 @@ import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Provilogin } from "./../uselogin"
-const Products = ({}) => {
+const Products = ({loading}) => {
     const [pds, getpd] = useState([])
     const [types, getType] = useState([])
     const handle = useContext(Provilogin)
@@ -108,10 +108,11 @@ const Products = ({}) => {
     }
     useEffect(() => {
         async function Getpds() {
+            loading(true)
             const res = await axios.get("http://localhost:5000/api/products/")
             handle.setcountpage(Math.ceil(res.data.products.length / 6))
             getpd(res.data.products)
-
+            loading(false)
         }
         async function GetTypes() {
             const resT = await axios.get("http://localhost:5000/api/type/")
@@ -122,10 +123,12 @@ const Products = ({}) => {
         GetTypes()
     }, [])
     useEffect(() => {
+
         async function Getpds() {
+            
             const res = await axios.get("http://localhost:5000/api/products?page=" + handle.getpage)
             getpd(res.data.products)
-
+            
         }
         Getpds()
     }, [handle.getpage])
